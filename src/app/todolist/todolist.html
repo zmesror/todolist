@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>To-Do List</h1>
+
+    <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)" class="mb-4">
+        <div class="mb-3">
+            <label for="task" class="form-label">Task to complete</label>
+            <input type="text" ngModel name="newTask" class="form-control" id="task" aria-describedby="taskHelp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Completed</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(task of tasks; track task; let idx = $index) {
+                <tr>
+                    <td><input #taskinput type="text" value="{{task.name}}" class="form-control"
+                        [readOnly]="task.isReadOnly"
+                        [ngClass]="{'edit': !task.isReadOnly, 'noedit': task.isReadOnly, 'crossed': task.isCompleted}">
+                    </td>
+                    <td>
+                        <input type="checkbox" [checked]="task.isCompleted" (change)="onCheck(idx)" class="form-check-input" id="check">
+                    </td>
+                    <td class="d-flex gap-2">
+                        <button type="button" class="btn btn-primary btn-sm action" (click)="onEdit(idx)" [disabled]="!task.isReadOnly">Edit</button>
+                        <button type="button" class="btn btn-light btn-sm action" (click)="onSave(idx, taskinput.value)" [disabled]="task.isReadOnly">Save</button>
+                        <button type="button" class="btn btn-danger btn-sm action" (click)="onDelete(idx)">Delete</button>
+                    </td>
+                </tr>
+            } @empty {
+            <p>No tasks.</p>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,18 @@
+.action {
+    width: 70px;
+}
+
+#check {
+    border: 1px solid #cfcfcf;
+    margin-left: 30px;
+    margin-top: 6px;
+}
+
+
+.noedit {
+    background-color: rgb(247, 247, 247);
+}
+
+.crossed {
+    text-decoration: line-through;
+}
